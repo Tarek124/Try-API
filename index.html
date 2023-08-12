@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"
+        class=" flex justify-around items-center mx-auto mt-8 w-[800px] h-[400px] rounded-lg ">
+        <div class="w-[45%]">
+            <img src="./undraw_businessman_fxi6.svg" class="w-[80%] pl-4" alt="">
+        </div>
+
+        <div class="mx-4 font-['Poppins'] w-[45%] ">
+            <h1 class="text-[22px] font-semibold text-center" id="acivity"></h1>
+        </div>
+    </div>
+    <script>
+        function randomTask() {
+            fetch("http://www.boredapi.com/api/activity/")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("acivity").innerText = data.activity;
+                })
+        }
+        setInterval(() => {
+            randomTask()
+        }, 5000);
+    </script>
+</body>
+
+</html>
