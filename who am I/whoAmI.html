@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Am I</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    #icons i {
+        font-size: 20px;
+        color: rgba(0, 187, 0, 0.596);
+        cursor: pointer;
+        padding: 16px;
+        border-radius: 5px;
+
+    }
+
+    #icons i:hover {
+        color: rgba(0, 187, 0, 0.842);
+        transition: .4s;
+        background: #00000010;
+    }
+</style>
+
+<body>
+    <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"
+        class=" flex flex-col items-center mx-auto mt-[8rem] w-[800px] h-[400px] rounded-lg ">
+        <div class="w-[25%] flex justify-center items-center m-4">
+            <img id="img" src="" class="w-[80%] rounded-[50%] border-[4px] border-[#d4d4d4]" alt="">
+        </div>
+        <div class="flex w-[80%] flex-col justify-center items-center m-4">
+            <p id="title" class="font-semibold  text-[#000000b0] tracking-wide">
+
+            </p>
+            <h1 id="text" class="font-bold text-[24px] p-1 tracking-wide"></h1>
+        </div>
+
+        <div id="icons" class="font-['Poppins'] w-[45%] flex justify-around">
+            <i id="user" class="fa-solid fa-user"></i>
+            <i id="email" class="fa-solid fa-envelope"></i>
+            <i id="calender" class="fa-regular fa-calendar-days"></i>
+            <i id="location" class="fa-solid fa-map-location-dot"></i>
+            <i id="call" class="fa-solid fa-square-phone"></i>
+            <i id="pass" class="fa-solid fa-lock"></i>
+        </div>
+    </div>
+    <script>
+        const title = document.getElementById("title"),
+            text = document.getElementById('text'),
+            user = document.getElementById('user'),
+            email = document.getElementById('email'),
+            calender = document.getElementById('calender'),
+            loca = document.getElementById("location"),
+            call = document.getElementById("call"),
+            pass = document.getElementById('pass'),
+            img = document.getElementById('img');
+
+
+
+        fetch("https://randomuser.me/api")
+            .then(res => res.json())
+            .then(data => {
+                myData(data)
+            })
+
+        function myData(data) {
+            const userData = data,
+                names = userData.results[0].name,
+                emailAddress = userData.results[0].email,
+                birthday = userData.results[0].dob.date,
+                fullName = ` ${names.title} ${names.first} ${names.last}`,
+                address = `Country:  ${userData.results[0].location.country}, City: ${userData.results[0].location.city}, state: ${userData.results[0].location.state}`,
+                phone = userData.results[0].cell,
+                password = userData.results[0].login.password;
+            pic = userData.results[0].picture.large;
+            img.src = pic
+            title.innerText = "Hi, my name is"
+            text.innerText = fullName;
+            event(user, "Hi, my name is", fullName);
+            event(email, "My email address is", emailAddress);
+            event(calender, "My birthday is", birthday);
+            event(loca, "My address is", address);
+            event(call, "My phone number is", phone);
+            event(pass, "My Password is", password)
+
+        }
+
+        function event(x, y, z) {
+            x.addEventListener('mouseenter', () => {
+                title.innerText = y;
+                text.innerText = z;
+            })
+        }
+    </script>
+</body>
+
+</html>
